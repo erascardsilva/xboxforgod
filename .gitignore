@@ -2,15 +2,15 @@
 snapcraft.login
 
 # Binários e arquivos compilados (Wails / Go)
-build/bin/
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-*.test
-*.out
-bin/
+# build/bin/
+# *.exe
+# *.exe~
+# *.dll
+# *.so
+# *.dylib
+# *.test
+# *.out
+# bin/
 
 # Frontend (Node.js)
 frontend/node_modules/
