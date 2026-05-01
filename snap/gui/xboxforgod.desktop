@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=XboxForGOD
+Comment=Conversor de ISO Xbox 360 para formato GOD
+Exec=xboxforgod
+Icon=${SNAP}/gui/xboxforgod.png
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=xbox;iso;god;converter;

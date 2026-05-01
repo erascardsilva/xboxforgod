@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XboxForGOD</title>
+    <meta name="description" content="Ferramenta para converter ISOs Xbox 360 para formato GOD" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+  <script type="module" crossorigin src="/assets/index.4385cf59.js"></script>
+  <link rel="stylesheet" href="/assets/index.dd69969d.css">
+</head>
+<body>
+    <div id="app">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <img src="/assets/xbox.acb08ae8.png" alt="Xbox Logo" />
+                </div>
+                <h1 class="logo-text">Xbox<span>ForGOD</span></h1>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-section-label" data-i18n="nav_convert_label">Converter</li>
+                <li>
+                    <button class="nav-btn active" data-page="convert-god" id="nav-convert-god">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
+                        <span data-i18n="nav_convert_btn">Converter ISO para GOD</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-btn" data-page="copy-iso" id="nav-copy-iso">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span data-i18n="nav_copy_btn">Cópia DVD para ISO</span>
+                    </button>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <button class="nav-btn" data-page="about" id="nav-about">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <span data-i18n="nav_about_btn">Sobre</span>
+                    </button>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <button class="nav-btn support-btn" id="nav-support">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        <span data-i18n="nav_support_btn">Apoie o Projeto</span>
+                    </button>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator" id="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="dep-status-text" data-i18n="status_checking">Verificando...</span>
+                </div>
+                <div class="lang-selector">
+                    <button class="lang-btn active" data-lang="pt">PT</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
+        </nav>
+
+        <main id="content">
+            <!-- Converter GOD -->
+            <section class="page active" id="page-convert-god">
+                <div class="page-header">
+                    <h2 data-i18n="page_convert_title">ISO → GOD</h2>
+                    <p class="page-desc" data-i18n="page_convert_desc">Transforme arquivos ISO em formato GOD para uso em Xbox 360 (RGH/JTAG)</p>
+                </div>
+                <div class="card">
+                    <div class="form-group">
+                        <label for="convert-iso-path" data-i18n="label_iso_input">Arquivo ISO de entrada</label>
+                        <div class="input-row">
+                            <input type="text" id="convert-iso-path" class="form-input" data-i18n-placeholder="placeholder_select_iso" placeholder="Selecione o arquivo ISO..." readonly />
+                            <button class="btn btn-secondary" id="btn-select-iso" data-i18n="btn_browse">Procurar</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="convert-output-dir" data-i18n="label_god_output">Diretório de saída GOD</label>
+                        <div class="input-row">
+                            <input type="text" id="convert-output-dir" class="form-input" data-i18n-placeholder="placeholder_select_dir" placeholder="Selecione o diretório..." readonly />
+                            <button class="btn btn-secondary" id="btn-select-god-dir" data-i18n="btn_browse">Procurar</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg" id="btn-convert-god">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
+                        <span data-i18n="btn_convert_action">Converter para GOD</span>
+                    </button>
+                </div>
+
+                <div class="progress-panel" id="convert-progress-panel">
+                    <div class="progress-header">
+                        <span class="progress-title" id="convert-progress-title" data-i18n="progress_waiting">Aguardando...</span>
+                        <span class="progress-percent" id="convert-progress-percent">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="convert-progress-fill"></div>
+                        <div class="progress-glow" id="convert-progress-glow"></div>
+                    </div>
+                    <div class="progress-details" id="convert-progress-details"></div>
+                    <div class="log-content" id="convert-log"></div>
+                </div>
+            </section>
+
+            <!-- Copiar ISO -->
+            <section class="page" id="page-copy-iso">
+                <div class="page-header">
+                    <h2 data-i18n="page_copy_title">Copiar ISO de DVD</h2>
+                    <p class="page-desc" data-i18n="page_copy_desc">Crie uma imagem ISO a partir do seu DVD de jogo Xbox 360</p>
+                </div>
+                <div class="card">
+                    <div class="form-group">
+                        <label for="drive-select" data-i18n="label_dvd_drive">Unidade de DVD</label>
+                        <div class="input-row">
+                            <select id="drive-select" class="form-select">
+                                <option value="" data-i18n="select_drive_default">Selecione uma unidade...</option>
+                            </select>
+                            <button class="btn btn-secondary" id="btn-refresh-drives">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="iso-output-dir" data-i18n="label_output_dir">Diretório de saída</label>
+                        <div class="input-row">
+                            <input type="text" id="iso-output-dir" class="form-input" data-i18n-placeholder="placeholder_select_dir" placeholder="Selecione o diretório..." readonly />
+                            <button class="btn btn-secondary" id="btn-select-output-dir" data-i18n="btn_browse">Procurar</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="iso-output-name" data-i18n="label_iso_name">Nome do arquivo ISO</label>
+                        <input type="text" id="iso-output-name" class="form-input" data-i18n-placeholder="placeholder_iso_name" placeholder="meu_jogo.iso" />
+                    </div>
+                    <button class="btn btn-primary btn-lg" id="btn-copy-iso">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                        <span data-i18n="btn_copy_action">Iniciar Cópia</span>
+                    </button>
+                </div>
+
+                <div class="progress-panel" id="copy-progress-panel">
+                    <div class="progress-header">
+                        <span class="progress-title" id="copy-progress-title" data-i18n="progress_waiting">Aguardando...</span>
+                        <span class="progress-percent" id="copy-progress-percent">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="copy-progress-fill"></div>
+                        <div class="progress-glow" id="copy-progress-glow"></div>
+                    </div>
+                    <div class="progress-details" id="copy-progress-details"></div>
+                    <div class="log-content" id="copy-log"></div>
+                </div>
+            </section>
+
+            <!-- Sobre -->
+            <section class="page" id="page-about">
+                <div class="page-header">
+                    <h2 data-i18n="about_title">Sobre o XboxForGOD</h2>
+                    <p class="page-desc" data-i18n="about_desc">Como funciona e para que serve</p>
+                </div>
+                <div class="card about-card">
+                    <div class="about-section">
+                        <h3 data-i18n="about_q1">O que é o formato GOD?</h3>
+                        <p data-i18n="about_a1" data-i18n-html="true">O formato <strong>GOD (Games on Demand)</strong> é um formato de arquivo específico para jogos do Xbox 360, projetado para ser executado diretamente do disco rígido do console. É amplamente utilizado em consoles Xbox 360 modificados com <strong>RGH/JTAG</strong>.</p>
+                    </div>
+
+                    <div class="about-section">
+                        <h3 data-i18n="about_q2">Como funciona?</h3>
+                        <div class="flow-steps">
+                            <div class="flow-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4 data-i18n="about_step1_title">Inserir DVD</h4>
+                                    <p data-i18n="about_step1_desc">Insira o DVD do jogo Xbox 360 no leitor óptico do computador.</p>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4 data-i18n="about_step2_title">Copiar ISO</h4>
+                                    <p data-i18n="about_step2_desc" data-i18n-html="true">O programa utiliza o comando <code>dd</code> (Linux) ou leitura direta (Windows) para criar uma imagem ISO idêntica do disco.</p>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4 data-i18n="about_step3_title">Converter para GOD</h4>
+                                    <p data-i18n="about_step3_desc" data-i18n-html="true">A ISO é convertida para o formato GOD usando o utilitário <code>iso2god</code>, gerando a estrutura de pastas compatível com o Xbox 360.</p>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4 data-i18n="about_step4_title">Copiar para HD</h4>
+                                    <p data-i18n="about_step4_desc">A pasta GOD gerada é copiada para o HD interno ou externo do Xbox 360 com exploit (RGH/JTAG), aparecendo diretamente no menu de jogos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-section">
+                        <h3 data-i18n="about_adv_title">Vantagens do formato GOD</h3>
+                        <ul class="advantages-list">
+                            <li data-i18n="about_adv1" data-i18n-html="true"><strong>Conveniência</strong> — Jogos executados diretamente do HD, sem disco físico.</li>
+                            <li data-i18n="about_adv2" data-i18n-html="true"><strong>Velocidade</strong> — Carregamento mais rápido que a leitura do DVD.</li>
+                            <li data-i18n="about_adv3" data-i18n-html="true"><strong>Preservação</strong> — Reduz o desgaste do leitor de DVD do console.</li>
+                            <li data-i18n="about_adv4" data-i18n-html="true"><strong>Organização</strong> — Facilita o gerenciamento de grandes bibliotecas de jogos.</li>
+                        </ul>
+                    </div>
+
+                    <div class="about-section">
+                        <h3 data-i18n="about_req_title">Requisitos do sistema</h3>
+                        <div class="req-grid">
+                            <div class="req-item">
+                                <span class="req-label">Linux</span>
+                                <span class="req-value"><code>dd</code> (coreutils) + <code>iso2god</code></span>
+                            </div>
+                            <div class="req-item">
+                                <span class="req-label">Windows</span>
+                                <span class="req-value"><code>iso2god.exe</code> no PATH</span>
+                            </div>
+                            <div class="req-item">
+                                <span class="req-label" data-i18n="about_req_detected">Plataforma detectada</span>
+                                <span class="req-value" id="platform-info">—</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="signature">
+                        <p data-i18n="about_dev_by">Desenvolvido por</p>
+                        <h3>Erasmo Cardoso</h3>
+                        <p class="signature-role">Software Engineer | Electronics Technician</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+</body>
+</html>

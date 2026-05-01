@@ -1,0 +1,70 @@
+name: xboxforgod
+base: core22
+version: '1.0.0'
+icon: snap/gui/xboxforgod.png
+summary: Conversor de ISO Xbox 360 para formato GOD
+description: |
+  Ferramenta para copiar DVDs de jogos Xbox 360 para imagens ISO
+  e converter essas ISOs para o formato GOD (Games on Demand),
+  ideal para uso em consoles modificados (RGH/JTAG).
+  Desenvolvido por Erasmo Cardoso - Software Engineer | Electronics Technician.
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+
+apps:
+  xboxforgod:
+    command: bin/xboxforgod
+    extensions: [gnome]
+    desktop: gui/xboxforgod.desktop
+    environment:
+      GTK_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/gtk-3.0
+      GTK_USE_PORTAL: 1
+      LD_LIBRARY_PATH: ${SNAP_LIBRARY_PATH}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+      WEBKIT_DISABLE_COMPOSITING_MODE: 1
+    plugs:
+      - home
+      - network
+      - opengl
+      - wayland
+      - x11
+      - removable-media
+      - optical-drive
+
+parts:
+  xboxforgod:
+    plugin: nil
+    source: .
+    build-packages:
+      - libgtk-3-dev
+      - libwebkit2gtk-4.0-dev
+      - pkg-config
+    build-snaps:
+      - go/1.24/stable
+      - node/20/stable
+    stage-packages:
+      - libgtk-3-0
+      - libwebkit2gtk-4.0-37
+      - coreutils
+    override-build: |
+      # Path setup for Snapcraft build environment
+      export GOPATH=$HOME/go
+      export PATH=$HOME/go/bin:/usr/local/bin:$PATH
+      
+      # Install Wails CLI using the correct Go version
+      go install github.com/wailsapp/wails/v2/cmd/wails@latest
+      
+      # Build the application (Frontend + Backend)
+      wails build -clean
+      
+      # Install the binary
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cp build/bin/xboxforgod $SNAPCRAFT_PART_INSTALL/bin/xboxforgod
+      
+      # Copy GUI assets
+      mkdir -p $SNAPCRAFT_PART_INSTALL/gui
+      cp snap/gui/xboxforgod.png $SNAPCRAFT_PART_INSTALL/gui/xboxforgod.png
+      cp snap/gui/xboxforgod.desktop $SNAPCRAFT_PART_INSTALL/gui/xboxforgod.desktop
