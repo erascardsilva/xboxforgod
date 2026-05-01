@@ -9,6 +9,12 @@
   <img src="https://img.shields.io/badge/Xbox_360-107C10?style=for-the-badge&logo=xbox&logoColor=white" alt="Xbox 360" />
 </p>
 
+<p align="center">
+  <a href="https://snapcraft.io/xboxforgod">
+    <img alt="Disponível na Snap Store" src="https://snapcraft.io/pt/dark/install.svg" />
+  </a>
+</p>
+
 XboxForGOD is a modern, cross-platform desktop application built with Wails that simplifies managing Xbox 360 game files. It allows users to effortlessly copy game DVDs into ISO images and convert those ISOs into the GOD (Games on Demand) format, ready to be played on RGH/JTAG modified consoles.
 
 ## ✨ Features
@@ -78,11 +84,20 @@ graph TD
 - **Linux (amd64):** Fully compatible. Requires `dd` (coreutils) which is natively present in almost all distributions.
 - **Windows (amd64):** Fully compatible. Does not require external installations.
 
-### 📂 Executables Location
+### 📂 Instalação e Downloads
 
-After building the application using the `wails build` command, the final ready-to-use standalone executable can be found in the following directory:
+#### Ubuntu / Linux (via Snap Store)
+A forma mais fácil e recomendada de instalar no Linux é diretamente pela Snap Store. O aplicativo é isolado, auto-atualizável e já contém todas as dependências de sistema:
+
+[![Disponível na Snap Store](https://snapcraft.io/pt/dark/install.svg)](https://snapcraft.io/xboxforgod)
+
+*(Ou via terminal executando: `sudo snap install xboxforgod`)*
+
+#### Windows (Instalador Nativo e Standalone)
+Para usuários de Windows, os arquivos para instalação são gerados automaticamente durante o processo de build do Wails (Cross-Compiling via NSIS) e ficam disponíveis localmente no seguinte diretório:
 
 ```text
 build/bin/
 ```
-The resulting binary contains the entire frontend, the Go logic, and the required dependencies wrapped into a single file.
+
+Dentro desta pasta você encontrará o **Instalador para Windows** (ex: `xboxforgod-amd64-installer.exe`), que instalará a aplicação e criará atalhos no Menu Iniciar/Desktop, além do binário standalone pronto para uso. O pacote já contém a interface, a lógica em Go e as dependências embarcadas num único arquivo.
