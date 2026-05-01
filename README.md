@@ -11,96 +11,95 @@
 
 <p align="center">
   <a href="https://snapcraft.io/xboxforgod">
-    <img alt="Disponível na Snap Store" src="https://snapcraft.io/pt/dark/install.svg" />
+    <img alt="Available on Snap Store" src="https://snapcraft.io/pt/dark/install.svg" />
   </a>
 </p>
 
-O XboxForGOD é uma ferramenta desktop multiplataforma desenvolvida para simplificar o gerenciamento de arquivos de jogos do Xbox 360. A aplicação permite realizar a cópia de DVDs de jogos para imagens ISO e a conversão dessas imagens para o formato GOD (Games on Demand), prontas para uso em consoles com modificação RGH/JTAG.
+XboxForGOD is a modern, cross-platform desktop application built with Wails that simplifies managing Xbox 360 game files. It allows users to copy game DVDs into ISO images and convert those ISOs into the GOD (Games on Demand) format, ready to be played on RGH/JTAG modified consoles.
 
-## Funcionalidades
+## Features
 
-- **Extração de DVD para ISO:** Criação direta de imagem ISO a partir do disco original.
-- **Conversão ISO para GOD:** Processamento de arquivos ISO existentes para o formato Games on Demand.
-- **Interface Multi-idioma:** Suporte completo para Português (PT-BR) e Inglês.
-- **Dependências Embutidas:** Os binários do `iso2god` estão integrados ao executável, dispensando instalações manuais.
+- **DVD to ISO Extraction:** Directly create an ISO image from your Xbox 360 game DVD.
+- **ISO to GOD Conversion:** Convert existing ISO files into the GOD format for seamless execution from the console's hard drive.
+- **Bilingual Interface:** Fully supports English and Portuguese (PT-BR).
+- **Embedded Dependencies:** The iso2god binaries are bundled directly within the application, eliminating the need for manual installations.
 
-## Arquitetura
+## Architecture
 
-O projeto utiliza o framework **Wails v2**, unindo o desempenho do Go no backend com a flexibilidade de tecnologias web no frontend.
+XboxForGOD follows a modern desktop application architecture leveraging the Wails v2 framework, combining Go performance with web technology flexibility.
 
 ```mermaid
 graph TD
     subgraph Frontend [JS / HTML / CSS]
-        UI[Interface Gráfica]
-        I18N[Módulo I18N]
-        Events[Wails Events]
+        UI[Graphical User Interface]
+        I18N[I18N Module]
+        Events[Wails Event Listeners]
     end
 
-    subgraph Backend [Go]
-        App[Estrutura App]
-        Embed[Binários Embarcados]
-        Syscall[Chamadas de Sistema: dd / OS Read]
+    subgraph Backend [Go Application]
+        App[App Struct]
+        Embed[Embedded Binaries FS]
+        Syscall[System Calls: dd / OS Read]
     end
     
-    subgraph Host OS [Sistema Operacional]
-        FS[Sistema de Arquivos]
-        DVD[Unidade Óptica]
+    subgraph Host OS [Operating System]
+        FS[File System]
+        DVD[DVD Optical Drive]
     end
 
-    UI <-->|Wails IPC| App
-    Events <--|Progresso| App
+    UI <-->|Wails IPC Bindings| App
+    Events <--|Progress Events| App
     App --> Embed
     App --> Syscall
     Syscall --> FS
     Syscall --> DVD
 ```
 
-## Funcionamento
+## How it Works
 
-1. **Detecção:** O backend em Go identifica as unidades ópticas disponíveis através de comandos nativos do sistema.
-2. **Cópia:** A extração é realizada via `dd` (Linux) ou leitura direta do bloco de dispositivo (Windows).
-3. **Conversão:** O utilitário `iso2god` é extraído para um local temporário e executado, com o progresso sendo enviado em tempo real para a interface.
-
----
-
-### Apoio ao Projeto
-
-Se esta ferramenta for útil para você e desejar apoiar o desenvolvimento contínuo, considere realizar uma doação via PayPal:
-
-[**Doar via PayPal**](https://www.paypal.com/ncp/payment/8V6WQCGN6HDCQ)
+1. **Insert DVD:** The application detects available optical drives using native system commands.
+2. **Copy ISO:** The application extracts the disc content. On Linux, it wraps the native dd command. On Windows, it reads directly from the device block.
+3. **Convert to GOD:** The application extracts the embedded iso2god utility to a temporary location and executes it against the selected ISO, piping the progress output back to the frontend in real-time.
 
 ---
 
-### Desenvolvido por
+### Support the Project
+
+If you find this tool useful and would like to support its development, you can make a donation via PayPal:
+
+[**Donate via PayPal**](https://www.paypal.com/ncp/payment/8V6WQCGN6HDCQ)
+
+---
+
+### Developed by
 **Erasmo Cardoso**
 *Software Engineer | Electronics Technician*
 
 ---
 
-### Sistemas Compatíveis
+### Compatible Systems
 
 <p>
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
   <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
 </p>
 
-- **Linux (amd64):** Requer `dd` (disponível na maioria das distribuições).
-- **Windows (amd64):** Totalmente independente, sem requisitos externos.
+- **Linux (amd64):** Fully compatible. Requires dd (coreutils).
+- **Windows (amd64):** Fully compatible. Does not require external installations.
 
-### Instalação e Downloads
+### Installation and Downloads
 
 #### Linux (via Snap Store)
-A forma recomendada de instalação no Linux é através da Snap Store. O pacote é isolado e gerencia todas as atualizações automaticamente:
+The easiest way to install on Linux is directly through the Snap Store. The application is isolated, self-updating, and contains all required dependencies:
 
-[![Disponível na Snap Store](https://snapcraft.io/pt/dark/install.svg)](https://snapcraft.io/xboxforgod)
+[![Available on Snap Store](https://snapcraft.io/pt/dark/install.svg)](https://snapcraft.io/xboxforgod)
 
-*(Ou via terminal: `sudo snap install xboxforgod`)*
+*(Or via terminal: sudo snap install xboxforgod)*
 
-#### Windows (Instalador e Executável)
-Os arquivos para Windows são gerados na pasta de build após a compilação:
+#### Windows (Installer and Standalone)
+Windows installation files are automatically generated during the build process and are available in the following directory:
 
 ```text
 build/bin/
 ```
-
-Neste diretório estão disponíveis o **Instalador** (`xboxforgod-amd64-installer.exe`) e o executável standalone.
+The directory contains the Windows Installer (e.g., xboxforgod-amd64-installer.exe) and the standalone binary.
