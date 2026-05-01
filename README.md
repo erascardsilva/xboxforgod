@@ -68,6 +68,14 @@ graph TD
 
 ---
 
+### ☕ Support the Project
+
+If you find this tool useful and would like to support its development, you can make a donation via PayPal:
+
+[**Donate via PayPal**](https://www.paypal.com/ncp/payment/8V6WQCGN6HDCQ)
+
+---
+
 ### Developed by
 **Erasmo Cardoso**
 *Software Engineer | Electronics Technician*
