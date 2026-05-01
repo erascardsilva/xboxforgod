@@ -1,7 +1,7 @@
 name: xboxforgod
 base: core22
 version: '1.0.0'
-icon: snap/gui/xboxforgod.png
+icon: snap/gui/icon.png
 summary: Conversor de ISO Xbox 360 para formato GOD
 description: |
   Ferramenta para copiar DVDs de jogos Xbox 360 para imagens ISO
@@ -63,8 +63,3 @@ parts:
       # Install the binary
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
       cp build/bin/xboxforgod $SNAPCRAFT_PART_INSTALL/bin/xboxforgod
-      
-      # Copy GUI assets
-      mkdir -p $SNAPCRAFT_PART_INSTALL/gui
-      cp snap/gui/xboxforgod.png $SNAPCRAFT_PART_INSTALL/gui/xboxforgod.png
-      cp snap/gui/xboxforgod.desktop $SNAPCRAFT_PART_INSTALL/gui/xboxforgod.desktop
