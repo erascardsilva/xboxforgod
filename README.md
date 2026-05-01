@@ -15,97 +15,92 @@
   </a>
 </p>
 
-XboxForGOD is a modern, cross-platform desktop application built with Wails that simplifies managing Xbox 360 game files. It allows users to effortlessly copy game DVDs into ISO images and convert those ISOs into the GOD (Games on Demand) format, ready to be played on RGH/JTAG modified consoles.
+O XboxForGOD é uma ferramenta desktop multiplataforma desenvolvida para simplificar o gerenciamento de arquivos de jogos do Xbox 360. A aplicação permite realizar a cópia de DVDs de jogos para imagens ISO e a conversão dessas imagens para o formato GOD (Games on Demand), prontas para uso em consoles com modificação RGH/JTAG.
 
-## ✨ Features
+## Funcionalidades
 
-- **DVD to ISO Extraction:** Directly create an ISO image from your Xbox 360 game DVD.
-- **ISO to GOD Conversion:** Convert existing ISO files into the GOD format for seamless execution from the console's hard drive.
-- **Bilingual Interface:** Fully supports English and Portuguese (PT-BR).
-- **Embedded Dependencies:** The `iso2god` binaries are bundled directly within the application, eliminating the need for manual installations.
+- **Extração de DVD para ISO:** Criação direta de imagem ISO a partir do disco original.
+- **Conversão ISO para GOD:** Processamento de arquivos ISO existentes para o formato Games on Demand.
+- **Interface Multi-idioma:** Suporte completo para Português (PT-BR) e Inglês.
+- **Dependências Embutidas:** Os binários do `iso2god` estão integrados ao executável, dispensando instalações manuais.
 
-## 🏗 Architecture
+## Arquitetura
 
-XboxForGOD follows a modern desktop application architecture leveraging the **Wails v2** framework, combining the performance of Go with the flexibility of web technologies.
+O projeto utiliza o framework **Wails v2**, unindo o desempenho do Go no backend com a flexibilidade de tecnologias web no frontend.
 
 ```mermaid
 graph TD
-    subgraph Frontend [Vanilla JS / HTML / CSS]
-        UI[Graphical User Interface]
-        I18N[I18N Module]
-        Events[Wails Event Listeners]
+    subgraph Frontend [JS / HTML / CSS]
+        UI[Interface Gráfica]
+        I18N[Módulo I18N]
+        Events[Wails Events]
     end
 
-    subgraph Backend [Go Application]
-        App[App Struct]
-        Embed[Embedded Binaries FS]
-        Syscall[System Calls: dd / OS Read]
+    subgraph Backend [Go]
+        App[Estrutura App]
+        Embed[Binários Embarcados]
+        Syscall[Chamadas de Sistema: dd / OS Read]
     end
     
-    subgraph Host OS [Operating System]
-        FS[File System]
-        DVD[DVD Optical Drive]
+    subgraph Host OS [Sistema Operacional]
+        FS[Sistema de Arquivos]
+        DVD[Unidade Óptica]
     end
 
-    UI <-->|Wails IPC Bindings| App
-    Events <--|Progress Events| App
+    UI <-->|Wails IPC| App
+    Events <--|Progresso| App
     App --> Embed
     App --> Syscall
     Syscall --> FS
     Syscall --> DVD
 ```
 
-### Components
-1. **Frontend:** A lightweight Vanilla JavaScript interface (`index.html`, `main.js`, `style.css`) providing a responsive and dynamic user experience without the overhead of heavy web frameworks.
-2. **Backend:** A Go service that interacts natively with the OS. It lists optical drives, monitors extraction progress, and manages external processes.
-3. **Dependency Manager:** The `iso2god` executables (for both Linux and Windows) are securely embedded in the Go binary using `//go:embed`. During runtime, they are extracted to a temporary folder and executed automatically. 
+## Funcionamento
 
-## 🚀 How it Works
-
-1. **Insert DVD:** The user inserts the Xbox 360 game disc. The Go backend detects available optical drives using `lsblk` (Linux) or `wmic` (Windows).
-2. **Copy ISO:** The application extracts the disc content. On Linux, it wraps the native `dd` command. On Windows, it reads directly from the device block `\\.\<DriveLetter>:`.
-3. **Convert to GOD:** The application extracts the embedded `iso2god` utility to a temporary location and executes it against the selected ISO, piping the progress output back to the Wails frontend in real-time.
+1. **Detecção:** O backend em Go identifica as unidades ópticas disponíveis através de comandos nativos do sistema.
+2. **Cópia:** A extração é realizada via `dd` (Linux) ou leitura direta do bloco de dispositivo (Windows).
+3. **Conversão:** O utilitário `iso2god` é extraído para um local temporário e executado, com o progresso sendo enviado em tempo real para a interface.
 
 ---
 
-### ☕ Support the Project
+### Apoio ao Projeto
 
-If you find this tool useful and would like to support its development, you can make a donation via PayPal:
+Se esta ferramenta for útil para você e desejar apoiar o desenvolvimento contínuo, considere realizar uma doação via PayPal:
 
-[**Donate via PayPal**](https://www.paypal.com/ncp/payment/8V6WQCGN6HDCQ)
+[**Doar via PayPal**](https://www.paypal.com/ncp/payment/8V6WQCGN6HDCQ)
 
 ---
 
-### Developed by
+### Desenvolvido por
 **Erasmo Cardoso**
 *Software Engineer | Electronics Technician*
 
 ---
 
-### 💻 Compatible Systems
+### Sistemas Compatíveis
 
 <p>
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
   <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
 </p>
 
-- **Linux (amd64):** Fully compatible. Requires `dd` (coreutils) which is natively present in almost all distributions.
-- **Windows (amd64):** Fully compatible. Does not require external installations.
+- **Linux (amd64):** Requer `dd` (disponível na maioria das distribuições).
+- **Windows (amd64):** Totalmente independente, sem requisitos externos.
 
-### 📂 Instalação e Downloads
+### Instalação e Downloads
 
-#### Ubuntu / Linux (via Snap Store)
-A forma mais fácil e recomendada de instalar no Linux é diretamente pela Snap Store. O aplicativo é isolado, auto-atualizável e já contém todas as dependências de sistema:
+#### Linux (via Snap Store)
+A forma recomendada de instalação no Linux é através da Snap Store. O pacote é isolado e gerencia todas as atualizações automaticamente:
 
 [![Disponível na Snap Store](https://snapcraft.io/pt/dark/install.svg)](https://snapcraft.io/xboxforgod)
 
-*(Ou via terminal executando: `sudo snap install xboxforgod`)*
+*(Ou via terminal: `sudo snap install xboxforgod`)*
 
-#### Windows (Instalador Nativo e Standalone)
-Para usuários de Windows, os arquivos para instalação são gerados automaticamente durante o processo de build do Wails (Cross-Compiling via NSIS) e ficam disponíveis localmente no seguinte diretório:
+#### Windows (Instalador e Executável)
+Os arquivos para Windows são gerados na pasta de build após a compilação:
 
 ```text
 build/bin/
 ```
 
-Dentro desta pasta você encontrará o **Instalador para Windows** (ex: `xboxforgod-amd64-installer.exe`), que instalará a aplicação e criará atalhos no Menu Iniciar/Desktop, além do binário standalone pronto para uso. O pacote já contém a interface, a lógica em Go e as dependências embarcadas num único arquivo.
+Neste diretório estão disponíveis o **Instalador** (`xboxforgod-amd64-installer.exe`) e o executável standalone.
