@@ -2,7 +2,7 @@ name: xboxforgod
 base: core22
 title: XboxForGOD
 version: '1.0.0'
-icon: snap/gui/icon.png
+icon: snap/gui/xboxforgod.png
 license: MIT
 contact: https://github.com/erascardsilva/xboxforgod/issues
 website: https://github.com/erascardsilva/xboxforgod
@@ -68,3 +68,8 @@ parts:
       # Install the binary
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
       cp build/bin/xboxforgod $SNAPCRAFT_PART_INSTALL/bin/xboxforgod
+
+      # Install icons and desktop file manually
+      mkdir -p $SNAPCRAFT_PART_INSTALL/gui
+      cp snap/gui/xboxforgod.png $SNAPCRAFT_PART_INSTALL/gui/
+      cp snap/gui/xboxforgod.desktop $SNAPCRAFT_PART_INSTALL/gui/
