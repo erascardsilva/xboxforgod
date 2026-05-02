@@ -22,7 +22,7 @@ XboxForGOD is a modern, cross-platform desktop application built with Wails that
 - **DVD to ISO Extraction:** Directly create an ISO image from your Xbox 360 game DVD.
 - **ISO to GOD Conversion:** Convert existing ISO files into the GOD format for seamless execution from the console's hard drive.
 - **Bilingual Interface:** Fully supports English and Portuguese (PT-BR).
-- **Embedded Dependencies:** The iso2god binaries are bundled directly within the application, eliminating the need for manual installations.
+- **All-in-One Solution:** The `iso2god` binaries (for both Linux and Windows) are bundled directly within the application. No manual setup or external conversion tools are required.
 
 ## Architecture
 
@@ -58,8 +58,8 @@ graph TD
 ## How it Works
 
 1. **Insert DVD:** The application detects available optical drives using native system commands.
-2. **Copy ISO:** The application extracts the disc content. On Linux, it wraps the native dd command. On Windows, it reads directly from the device block.
-3. **Convert to GOD:** The application extracts the embedded iso2god utility to a temporary location and executes it against the selected ISO, piping the progress output back to the frontend in real-time.
+2. **Copy ISO:** The application extracts the disc content. On Linux, it uses the native `dd` command. On Windows, it performs direct low-level block reading.
+3. **Convert to GOD:** The application automatically extracts the internal `iso2god` utility to a temporary location, executes the conversion, and streams real-time progress back to the UI.
 
 ---
 
@@ -84,8 +84,8 @@ If you find this tool useful and would like to support its development, you can 
   <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows" />
 </p>
 
-- **Linux (amd64):** Fully compatible. Requires dd (coreutils).
-- **Windows (amd64):** Fully compatible. Does not require external installations.
+- **Linux (amd64):** Fully compatible. Built-in conversion tools. Requires `dd` (native in most distributions).
+- **Windows (amd64):** Fully compatible. Portable and self-contained; no external installations required.
 
 ### Installation and Downloads
 
