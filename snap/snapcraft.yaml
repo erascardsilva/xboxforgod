@@ -1,8 +1,8 @@
 name: xboxforgod
 base: core22
 title: XboxForGOD
-version: '1.0.1'
-icon: snap/gui/icon.png
+version: '1.0.2'
+icon: snap/gui/xboxforgod.png
 license: MIT
 contact: https://github.com/erascardsilva/xboxforgod/issues
 website: https://github.com/erascardsilva/xboxforgod
@@ -26,7 +26,6 @@ apps:
     command: bin/xboxforgod
     extensions: [gnome]
     environment:
-      GTK_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/gtk-3.0
       GTK_USE_PORTAL: 1
       LD_LIBRARY_PATH: ${SNAP_LIBRARY_PATH}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
       WEBKIT_DISABLE_COMPOSITING_MODE: 1
