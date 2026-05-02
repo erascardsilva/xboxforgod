@@ -2,7 +2,7 @@
 Name=XboxForGOD
 Comment=Conversor de ISO Xbox 360 para formato GOD
 Exec=xboxforgod
-Icon=${SNAP}/meta/gui/xboxforgod.png
+Icon=${SNAP}/meta/gui/icon.png
 Terminal=false
 Type=Application
 Categories=Utility;Game;

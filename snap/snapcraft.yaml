@@ -1,7 +1,7 @@
 name: xboxforgod
 base: core22
 title: XboxForGOD
-version: '1.0.2'
+version: '1.0.3'
 icon: snap/gui/xboxforgod.png
 license: MIT
 contact: https://github.com/erascardsilva/xboxforgod/issues
