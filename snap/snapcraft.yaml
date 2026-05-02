@@ -1,7 +1,13 @@
 name: xboxforgod
 base: core22
+title: XboxForGOD
 version: '1.0.0'
 icon: snap/gui/icon.png
+license: MIT
+contact: https://github.com/erascardsilva/xboxforgod/issues
+website: https://github.com/erascardsilva/xboxforgod
+source-code: https://github.com/erascardsilva/xboxforgod
+issues: https://github.com/erascardsilva/xboxforgod/issues
 summary: Conversor de ISO Xbox 360 para formato GOD
 description: |
   Ferramenta para copiar DVDs de jogos Xbox 360 para imagens ISO
@@ -19,7 +25,6 @@ apps:
   xboxforgod:
     command: bin/xboxforgod
     extensions: [gnome]
-    desktop: gui/xboxforgod.desktop
     environment:
       GTK_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/gtk-3.0
       GTK_USE_PORTAL: 1
